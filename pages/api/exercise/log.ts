@@ -20,7 +20,7 @@ handler.get(async (req: NextApiRequest, res: NextApiResponse) => {
       query = query.where('date').gt(to);
     }
     if (limit) {
-      query = query.limit(parseInt(limit, 10));
+      query = query.limit(parseInt(limit as string, 10));
     }
     const exercises = await query.exec();
     console.log('exercises', exercises);
