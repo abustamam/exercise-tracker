@@ -17,7 +17,6 @@ handler.use(middlewares);
 handler.post(async (req: NextApiRequest, res: NextApiResponse) => {
   try {
     const fd = await parseForm(req);
-    console.log('fd', fd);
     const { userId, description, duration, date: notDate } = fd;
     const date = notDate ? new Date(notDate) : new Date();
     const exercise = await Exercise.create({
@@ -26,11 +25,9 @@ handler.post(async (req: NextApiRequest, res: NextApiResponse) => {
       date,
       user: userId,
     });
-    console.log('exercise', exercise);
     const user = await User.findById(userId);
     user.exercises.push(exercise);
     await user.save();
-    console.log('user', user);
     res.statusCode = 200;
     const r = {
       _id: user._id,
@@ -39,7 +36,6 @@ handler.post(async (req: NextApiRequest, res: NextApiResponse) => {
       duration: +exercise.duration,
       date: date.toDateString(),
     };
-    console.log('r', r);
     res.json(r);
   } catch (err) {
     res.statusCode = 400;

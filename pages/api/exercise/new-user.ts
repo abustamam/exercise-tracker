@@ -28,7 +28,6 @@ handler.post(async (req: NextApiRequest, res: NextApiResponse) => {
     res.statusCode = 200;
     res.json(record);
   } catch (err) {
-    console.log('err', err);
     res.statusCode = 400;
     res.json({
       error: err.message,

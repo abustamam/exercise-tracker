@@ -1,8 +1,9 @@
 import { NextApiRequest, NextApiResponse } from 'next';
 import nextConnect from 'next-connect';
+import { parseISO } from 'date-fns';
+
 import { Exercise } from '../../../lib/exercise';
 import { User } from '../../../lib/user';
-
 import middlewares from '../../../middleware';
 
 const handler = nextConnect();
@@ -14,10 +15,10 @@ handler.get(async (req: NextApiRequest, res: NextApiResponse) => {
     const user = await User.findById(userId);
     let query = Exercise.find({ user: userId });
     if (from) {
-      query = query.where('date').gt(from);
+      query = query.where('date').gt(parseISO(from as string));
     }
     if (to) {
-      query = query.where('date').gt(to);
+      query = query.where('date').lt(parseISO(to as string));
     }
     if (limit) {
       query = query.limit(parseInt(limit as string, 10));
