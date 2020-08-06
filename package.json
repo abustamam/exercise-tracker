@@ -12,6 +12,7 @@
     "@material-ui/icons": "^4.9.1",
     "@material-ui/lab": "^4.0.0-alpha.56",
     "cors": "^2.8.5",
+    "date-fns": "^2.15.0",
     "formidable": "^1.2.2",
     "mongodb": "^3.6.0",
     "mongoose": "^5.9.27",

@@ -1,5 +1,6 @@
 import { NextApiRequest, NextApiResponse } from 'next';
 import nextConnect from 'next-connect';
+import { Types } from 'mongoose';
 
 import middlewares from '../../../middleware';
 import { User } from '../../../lib/user';
@@ -20,11 +21,14 @@ handler.post(async (req: NextApiRequest, res: NextApiResponse) => {
     if (existingRecord) {
       throw new Error('User already exists');
     }
-    const record = await User.create({ username });
+    const record = await User.create({
+      _id: new Types.ObjectId(),
+      username,
+    });
     res.statusCode = 200;
     res.json(record);
   } catch (err) {
-    console.log('err', err)
+    console.log('err', err);
     res.statusCode = 400;
     res.json({
       error: err.message,
